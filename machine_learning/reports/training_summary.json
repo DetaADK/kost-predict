@@ -1,0 +1,50 @@
+{
+  "selected_model": "Baseline median",
+  "training_rows": 30,
+  "features": [
+    "jarak_km",
+    "rating",
+    "ac"
+  ],
+  "target": "harga",
+  "target_unit": "ribu rupiah per bulan",
+  "evaluation": [
+    {
+      "model": "Baseline median",
+      "MAE_ribu_rupiah": 248.33333333333334,
+      "RMSE_ribu_rupiah": 302.9026246172192,
+      "R2_LOOCV": -0.21863931523022417
+    },
+    {
+      "model": "Gradient Boosting",
+      "MAE_ribu_rupiah": 250.54472289672913,
+      "RMSE_ribu_rupiah": 298.4243154652828,
+      "R2_LOOCV": -0.18287138215511134
+    },
+    {
+      "model": "Ridge alpha=10",
+      "MAE_ribu_rupiah": 257.7460704333405,
+      "RMSE_ribu_rupiah": 302.1546405141216,
+      "R2_LOOCV": -0.21262815976676808
+    },
+    {
+      "model": "Ridge alpha=1",
+      "MAE_ribu_rupiah": 266.0332745456186,
+      "RMSE_ribu_rupiah": 312.02188152074416,
+      "R2_LOOCV": -0.29312114954207114
+    },
+    {
+      "model": "Random Forest",
+      "MAE_ribu_rupiah": 269.02777131623105,
+      "RMSE_ribu_rupiah": 317.17686707751295,
+      "R2_LOOCV": -0.3362020145837612
+    },
+    {
+      "model": "Extra Trees",
+      "MAE_ribu_rupiah": 277.66611032725876,
+      "RMSE_ribu_rupiah": 318.86894432067993,
+      "R2_LOOCV": -0.35049680175570197
+    }
+  ],
+  "warning": "Dataset hanya 30 baris. Skor LOOCV tidak menjamin performa pada data kos baru; lakukan validasi eksternal setelah data tambahan tersedia."
+}
