@@ -7,6 +7,8 @@ import type {
 } from "../../types/prediction";
 
 import PredictionChart from "./PredictionChart";
+import dataKos from "../../data/dataKos.json";
+import PredictionExplanation from "./PredictionExplanation";
 
 interface Props {
   // Bisa berupa respons mentah dari backend (dibungkus "data") atau sudah diambil isinya
@@ -76,7 +78,11 @@ export default function PredictionResult({ result, input }: Props) {
 
       {/* Diagram atau peringatan */}
       {priceValid ? (
-        <PredictionChart price={price} />
+        <PredictionChart
+          price={price}
+          jarak={input.jarak_km}
+          dataKos={dataKos}
+        />
       ) : (
         <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-800">
           <p className="font-semibold">Harga prediksi tidak terbaca.</p>
@@ -85,6 +91,13 @@ export default function PredictionResult({ result, input }: Props) {
             {JSON.stringify(result, null, 2)}
           </pre>
         </div>
+      )}
+      {priceValid && (
+        <PredictionExplanation
+          key={`${price}-${input.jarak_km}-${input.ac}-${input.rating}`}
+          price={price}
+          input={input}
+        />
       )}
 
       {/* Keterangan */}

@@ -21,3 +21,26 @@ export async function predictPrice(
 
   return data as PredictionResponse;
 }
+
+const EXPLAIN_URL = "http://127.0.0.1:8000/api/prediksi/penjelasan/";
+
+export async function explainPrediction(
+  input: PredictionInput,
+  hargaPrediksi: number,
+): Promise<string> {
+  const response = await fetch(EXPLAIN_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...input, harga_prediksi: hargaPrediksi }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Penjelasan gagal diambil.");
+  }
+
+  return data.penjelasan as string;
+}
