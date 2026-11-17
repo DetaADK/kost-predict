@@ -1,5 +1,5 @@
 {
-  "selected_model": "Baseline median",
+  "selected_model": "Linear Regression",
   "training_rows": 30,
   "features": [
     "jarak_km",
@@ -8,6 +8,7 @@
   ],
   "target": "harga",
   "target_unit": "ribu rupiah per bulan",
+  "beats_baseline": false,
   "evaluation": [
     {
       "model": "Baseline median",
@@ -34,6 +35,12 @@
       "R2_LOOCV": -0.29312114954207114
     },
     {
+      "model": "Linear Regression",
+      "MAE_ribu_rupiah": 267.5381882166275,
+      "RMSE_ribu_rupiah": 313.8854039686483,
+      "R2_LOOCV": -0.30861337281737566
+    },
+    {
       "model": "Random Forest",
       "MAE_ribu_rupiah": 269.02777131623105,
       "RMSE_ribu_rupiah": 317.17686707751295,
@@ -46,5 +53,5 @@
       "R2_LOOCV": -0.35049680175570197
     }
   ],
-  "warning": "Dataset hanya 30 baris. Skor LOOCV tidak menjamin performa pada data kos baru; lakukan validasi eksternal setelah data tambahan tersedia."
+  "warning": "Dataset hanya 30 baris dan fitur hampir tidak berkorelasi dengan harga. Model belum lebih akurat daripada menebak median (R2 LOOCV negatif), jadi hasil prediksi hanya perkiraan kasar."
 }
