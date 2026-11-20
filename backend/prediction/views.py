@@ -18,16 +18,10 @@ from .serializers import PredictionSerializer
 # KONFIGURASI PATH
 # ==========================================
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ML_DIR = Path(__file__).resolve().parent / "ml"
 
-MODEL_PATH = (
-    ROOT_DIR
-    / "machine_learning"
-    / "models"
-    / "kos_price_model.joblib"
-)
-
-DATA_PATH = ROOT_DIR / "data" / "processed" / "kos_madiun_clean.csv"
+MODEL_PATH = ML_DIR / "kos_price_model.joblib"
+DATA_PATH = ML_DIR / "kos_madiun_clean.csv"
 
 
 # ==========================================
