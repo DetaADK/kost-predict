@@ -21,6 +21,9 @@ ROOT_DIR = BASE_DIR.parent
 
 load_dotenv(ROOT_DIR / ".env")
 
+# Vercel otomatis mengisi variabel VERCEL saat berjalan di platform mereka.
+ON_VERCEL = bool(os.getenv("VERCEL"))
+
 
 # ==========================================
 # ENV HELPERS
@@ -136,10 +139,15 @@ TEMPLATES = [
 # DATABASE
 # ==========================================
 
-# Pakai DATABASE_URL kalau ada (PostgreSQL di Render), jika tidak fallback ke SQLite lokal.
+# Pakai DATABASE_URL kalau ada, jika tidak fallback ke SQLite.
+# Di Vercel filesystem bersifat read-only kecuali /tmp, jadi SQLite diarahkan ke sana.
+DEFAULT_SQLITE_URL = (
+    "sqlite:////tmp/db.sqlite3" if ON_VERCEL else f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+)
+
 DATABASES = {
     "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        default=DEFAULT_SQLITE_URL,
         conn_max_age=600,
     )
 }
@@ -179,9 +187,17 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # Di Vercel tidak ada langkah collectstatic, jadi manifest storage tidak dipakai.
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if ON_VERCEL
+            else "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        ),
     },
 }
+
+# Di Vercel, WhiteNoise melayani static langsung dari folder static tiap app.
+WHITENOISE_USE_FINDERS = ON_VERCEL
 
 
 # ==========================================
