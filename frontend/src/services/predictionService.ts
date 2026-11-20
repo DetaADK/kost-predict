@@ -1,6 +1,6 @@
 import type { PredictionInput, PredictionResponse } from "../types/prediction";
 
-const API_URL = "http://127.0.0.1:8000/api/prediksi/harga/";
+const API_URL = `${import.meta.env.PROD ? "https://kost-predict.vercel.app" : "http://127.0.0.1:8000"}/api/prediksi/harga/`;
 
 export async function predictPrice(
   input: PredictionInput,
@@ -22,7 +22,7 @@ export async function predictPrice(
   return data as PredictionResponse;
 }
 
-const EXPLAIN_URL = "http://127.0.0.1:8000/api/prediksi/penjelasan/";
+const EXPLAIN_URL = `${import.meta.env.PROD ? "https://kost-predict.vercel.app" : "http://127.0.0.1:8000"}/api/prediksi/penjelasan/`;
 
 export async function explainPrediction(
   input: PredictionInput,
